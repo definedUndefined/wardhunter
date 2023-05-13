@@ -1,0 +1,1 @@
+export { DDragon as default } from "./ddragon"

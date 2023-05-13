@@ -1,28 +1,55 @@
-# Create T3 App
+# WardHunter Client
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+WardHunter is a Nodejs library for interacting with the Riot Games API. It is designed to be a simple and easy to use library for developers to use to create their own applications.
 
-## What's next? How do I make an app with this?
+This is a school project for the french [CDA degree](https://www.banque.di.afpa.fr/EspaceEmployeursCandidatsActeurs/EGPResultat.aspx?ct=01281m03&type=t). It is not meant to be used in production.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Installation
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+You first need to setup a postgresql database. You can use [supabase](https://supabase.com/) to do so.
+I recommand to use the local version of supabase, you can find the instructions [here](https://supabase.com/docs/guides/local-development).
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+You can alternatively use a local postgresql database, with [docker](https://www.docker.com/) for example.
 
-## Learn More
+Copy this repository and install the dependencies.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+cd wardhunter
+npm i
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Add environnement variables to your `.env` file.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```env
+# riot api
+RIOT_API_KEY=YOUR_RIOT_API_KEY
 
-## How do I deploy this?
+# postgresql
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Make sure your database is running, then run the following command to create the tables.
+
+```bash
+npm run db:init
+```
+
+## Usage
+
+You can start the server with the following command.
+
+```bash
+npm run dev
+```
+
+More information will be provided in the future.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)

@@ -7,8 +7,10 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    // DIRECT_URL: z.string().url(),
     DATABASE_URL: z.string().url(),
-    NODE_ENV: z.enum(["development", "test", "production"]),
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+    RIOT_API_KEY: z.string().min(1),
   },
 
   /**
@@ -25,8 +27,10 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    // DIRECT_URL: process.env.DIRECT_URL,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    RIOT_API_KEY: process.env.RIOT_API_KEY,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
 });
