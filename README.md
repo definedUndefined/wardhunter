@@ -14,7 +14,7 @@ You can alternatively use a local postgresql database, with [docker](https://www
 Copy this repository and install the dependencies.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+git clone https://github.com/definedUndefined/wardhunter.git
 cd wardhunter
 npm i
 ```
