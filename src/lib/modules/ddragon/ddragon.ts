@@ -1,6 +1,8 @@
 import { getLanguageCode, type Language } from "@/lib/constants/languages";
 import type { ChampionId } from "@/lib/constants/champions";
 import type { ChampionDTO, ChampionDetailsDTO } from "@/lib/models/champion";
+import fetch from 'node-fetch';
+
 
 export class DDragon {
     /**
