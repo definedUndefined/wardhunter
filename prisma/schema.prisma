@@ -131,15 +131,134 @@ model Team {
 }
 
 model Participant {
-  id         String   @id @default(uuid())
-  match      Match    @relation(fields: [matchId], references: [matchId])
-  matchId    String
-  summoner   Summoner @relation(fields: [puuid], references: [puuid])
-  puuid      String   @db.Char(78)
-  champion   Champion @relation(fields: [championId], references: [key])
-  championId Int
-  team       Team     @relation(fields: [teamId, matchId], references: [teamId, matchId])
-  teamId     Int      @db.SmallInt
+  id                             String   @id @default(uuid())
+  match                          Match    @relation(fields: [matchId], references: [matchId])
+  matchId                        String
+  summoner                       Summoner @relation(fields: [puuid], references: [puuid])
+  puuid                          String   @db.Char(78)
+  champion                       Champion @relation(fields: [championId], references: [key])
+  championId                     Int
+  team                           Team     @relation(fields: [teamId, matchId], references: [teamId, matchId])
+  teamId                         Int      @db.SmallInt
+  
+  allInPings                     Int      @db.SmallInt
+  assistMePings                  Int      @db.SmallInt
+  assists                        Int      @db.SmallInt
+  baitPings                      Int      @db.SmallInt
+  baronKills                     Int      @db.SmallInt
+  basicPings                     Int      @db.SmallInt
+  bountyLevel                    Int      @db.SmallInt
+  champExperience                Int
+  championName                   String
+  championTransform              Int
+  champLevel                     Int      @db.SmallInt
+  commandPings                   Int      @db.SmallInt
+  consumablesPurchased           Int      @db.SmallInt
+  damageDealtToBuildings         Int
+  damageDealtToObjectives        Int
+  damageDealtToTurrets           Int
+  damageSelfMitigated            Int
+  dangerPings                    Int      @db.SmallInt
+  deaths                         Int      @db.SmallInt
+  detectorWardsPlaced            Int      @db.SmallInt
+  doubleKills                    Int      @db.SmallInt
+  dragonKills                    Int      @db.SmallInt
+  eligibleForProgression         Boolean
+  enemyMissingPings              Int      @db.SmallInt
+  enemyVisionPings               Int      @db.SmallInt
+  firstBloodAssist               Boolean
+  firstBloodKill                 Boolean
+  firstTowerAssist               Boolean
+  firstTowerKill                 Boolean
+  gameEndedInEarlySurrender      Boolean
+  gameEndedInSurrender           Boolean
+  getBackPings                   Int      @db.SmallInt
+  goldEarned                     Int
+  goldSpent                      Int
+  holdPings                      Int      @db.SmallInt
+  individualPosition             String
+  inhibitorKills                 Int      @db.SmallInt
+  inhibitorsLost                 Int      @db.SmallInt
+  inhibitorTakedowns             Int      @db.SmallInt
+  item0                          Int      @db.SmallInt
+  item1                          Int      @db.SmallInt
+  item2                          Int      @db.SmallInt
+  item3                          Int      @db.SmallInt
+  item4                          Int      @db.SmallInt
+  item5                          Int      @db.SmallInt
+  item6                          Int      @db.SmallInt
+  itemsPurchased                 Int      @db.SmallInt
+  killingSprees                  Int      @db.SmallInt
+  kills                          Int      @db.SmallInt
+  lane                           String
+  largestCriticalStrike          Int      @db.SmallInt
+  largestKillingSpree            Int      @db.SmallInt
+  largestMultiKill               Int      @db.SmallInt
+  longestTimeSpentLiving         Int      @db.SmallInt
+  magicDamageDealt               Int
+  magicDamageDealtToChampions    Int
+  magicDamageTaken               Int
+  needVisionPings                Int      @db.SmallInt
+  neutralMinionsKilled           Int      @db.SmallInt
+  nexusKills                     Int      @db.SmallInt
+  nexusLost                      Int      @db.SmallInt
+  nexusTakedowns                 Int      @db.SmallInt
+  objectivesStolen               Int      @db.SmallInt
+  objectivesStolenAssists        Int      @db.SmallInt
+  onMyWayPings                   Int      @db.SmallInt
+  participantId                  Int      @db.SmallInt
+  pentaKills                     Int      @db.SmallInt
+  physicalDamageDealt            Int
+  physicalDamageDealtToChampions Int
+  physicalDamageTaken            Int
+  profileIcon                    Int
+  pushPings                      Int      @db.SmallInt
+  quadraKills                    Int      @db.SmallInt
+  riotIdName                     String
+  riotIdTagline                  String
+  role                           String
+  sightWardsBoughtInGame         Int      @db.SmallInt
+  spell1Casts                    Int      @db.SmallInt
+  spell2Casts                    Int      @db.SmallInt
+  spell3Casts                    Int      @db.SmallInt
+  spell4Casts                    Int      @db.SmallInt
+  summoner1Casts                 Int      @db.SmallInt
+  summoner1Id                    Int      @db.SmallInt
+  summoner2Casts                 Int      @db.SmallInt
+  summoner2Id                    Int      @db.SmallInt
+  summonerId                     String
+  summonerLevel                  Int      @db.SmallInt
+  summonerName                   String
+  teamEarlySurrendered           Boolean
+  teamPosition                   String
+  timeCCingOthers                Int
+  timePlayed                     Int
+  totalAllyJungleMinionsKilled   Int      @default(0) @db.SmallInt
+  totalDamageDealt               Int
+  totalDamageDealtToChampions    Int
+  totalDamageShieldedOnTeammates Int
+  totalDamageTaken               Int
+  totalEnemyJungleMinionsKilled  Int      @default(0) @db.SmallInt
+  totalHeal                      Int
+  totalHealsOnTeammates          Int
+  totalMinionsKilled             Int      @db.SmallInt
+  totalTimeCCDealt               Int
+  totalTimeSpentDead             Int
+  totalUnitsHealed               Int      @db.SmallInt
+  tripleKills                    Int      @db.SmallInt
+  trueDamageDealt                Int
+  trueDamageDealtToChampions     Int
+  trueDamageTaken                Int
+  turretKills                    Int      @db.SmallInt
+  turretsLost                    Int      @db.SmallInt
+  turretTakedowns                Int      @db.SmallInt
+  unrealKills                    Int      @db.SmallInt
+  visionClearedPings             Int      @db.SmallInt
+  visionScore                    Int
+  visionWardsBoughtInGame        Int      @db.SmallInt
+  wardsKilled                    Int      @db.SmallInt
+  wardsPlaced                    Int      @db.SmallInt
+  win                            Boolean
 
   @@unique([matchId, puuid])
 }
