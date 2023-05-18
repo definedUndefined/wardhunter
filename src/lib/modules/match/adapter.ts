@@ -28,10 +28,12 @@ export function matchToPrismaFullMatch(matchDTO: MatchDTO) {
                     createMany: {
                         data: participants
                             .filter(participant => participant.teamId === team.teamId)
-                            .map(participant => ({
-                                puuid: participant.puuid,
-                                championId: participant.championId,
-                            }))
+                            .map((participant) => {
+                               // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                               const { challenges, perks, teamId, ...rest } = participant;
+
+                               return rest;
+                            })
                     }
                 }
             }))
@@ -85,12 +87,15 @@ export function matchToPrismaParticipants(matchDTO: MatchDTO): Prisma.Participan
     const { metadata, info } = matchDTO;
     const { participants } = info;
 
-    return participants.map(participant => ({
-        matchId: metadata.matchId,
-        puuid: participant.puuid,
-        championId: participant.championId,
-        teamId: participant.teamId,
-    }))
+    return participants.map(participant => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { challenges, perks, ...rest } = participant;
+
+        return {
+            ...rest,
+            matchId: metadata.matchId,
+        }
+    })
 }
 
 /**
