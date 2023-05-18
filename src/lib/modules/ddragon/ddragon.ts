@@ -1,3 +1,4 @@
+import axios from "axios";
 import { getLanguageCode, type Language } from "@/lib/constants/languages";
 import type { ChampionId } from "@/lib/constants/champions";
 import type { ChampionDTO, ChampionDetailsDTO } from "@/lib/models/champion";
@@ -7,17 +8,17 @@ export class DDragon {
      * Gets the latest version of the game from the DDragon API
      */
     public async getLatestVersion() {
-        const versionURL = "https://ddragon.leagueoflegends.com/api/versions.json"
-        const versionResponse = await fetch(versionURL);
+        try {
+            const versionURL = "https://ddragon.leagueoflegends.com/api/versions.json"
+            const versionResponse = await axios.get<string[]>(versionURL);
 
-        if (!versionResponse.ok) {
+            const versionJSON = versionResponse.data
+            const version = versionJSON[0] ?? "13.9.1"
+
+            return version
+        } catch (error) {
             throw new Error("Could not fetch latest version")
         }
-
-        const versionJSON = await versionResponse.json() as string[]
-        const version = versionJSON[0] ?? "13.9.1"
-
-        return version
     }
 
     /**
@@ -26,18 +27,19 @@ export class DDragon {
      */
     public async getChampions(language: Language = "french") {
         const version = await this.getLatestVersion()
-        const languageCode = getLanguageCode(language) 
+        const languageCode = getLanguageCode(language)
 
-        const championURL = `https://ddragon.leagueoflegends.com/cdn/${version}/data/${languageCode}/champion.json`
-        const championResponse = await fetch(championURL)
+        try{
+            const championURL = `https://ddragon.leagueoflegends.com/cdn/${version}/data/${languageCode}/champion.json`
+            const championResponse = await axios.get<{ data: Record<string, ChampionDTO> }>(championURL)
 
-        if (!championResponse.ok) {
+            const championJSON = championResponse.data
+    
+            return Object.values(championJSON.data)
+
+        }catch(error){
             throw new Error("Could not fetch champions")
         }
-
-        const championJSON = await championResponse.json() as { data: Record<string, ChampionDTO> }
-
-        return Object.values(championJSON.data)
     }
 
     /**
@@ -53,16 +55,17 @@ export class DDragon {
         const version = await this.getLatestVersion()
         const languageCode = getLanguageCode(language)
 
-        const championURL = `https://ddragon.leagueoflegends.com/cdn/${version}/data/${languageCode}/${id}.json`
+        try{
+            const championURL = `https://ddragon.leagueoflegends.com/cdn/${version}/data/${languageCode}/${id}.json`
+    
+            const championResponse = await axios.get<{ data: Record<string, ChampionDetailsDTO> }>(championURL)
+    
+            const championJSON = championResponse.data
+    
+            return Object.values(championJSON.data)[0] as ChampionDetailsDTO
 
-        const championResponse = await fetch(championURL)
-
-        if (!championResponse.ok) {
+        }catch(error){
             throw new Error(`Could not fetch champion ${id}`)
         }
-
-        const championJSON = await championResponse.json() as { data: Record<string, ChampionDetailsDTO> }
-
-        return Object.values(championJSON.data)[0] as ChampionDetailsDTO
     }
 }
