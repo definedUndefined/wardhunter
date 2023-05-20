@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useSession } from 'next-auth/react'
 
 import { api } from "@/utils/api";
 import SearchSummoner from "@/components/SummonerSearchbar";
@@ -8,10 +9,12 @@ import Navbar from "@/components/Navbar";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
+  const { data, status } = useSession();
+  console.log(data, status);
   return (
     <>
       <Head>
+        {/* {session?.user ? <h1>Co</h1> : <h1>Pas co</h1>} */}
         <title>WardHunter</title>
         <meta name="description" content="WardHunter" />
         <link rel="icon" href="/favicon.ico" />

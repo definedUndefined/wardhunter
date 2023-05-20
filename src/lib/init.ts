@@ -14,6 +14,8 @@ export async function initDatabase(){
     await prisma.$transaction(
         champions.map((champion) => {
             const { info, image, stats, ...data } = champion
+            
+            console.log(champion);
 
             const updateChampionData = {
                 ...data,
