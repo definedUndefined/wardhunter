@@ -111,8 +111,8 @@ const SummonerPage: React.FC<InferGetServerSidePropsType<
         </div>
       </div>
 
-      <div className="container mx-auto grid grid-cols-6">
-        <div className="col-span-3 container mx-auto">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-6">
+        <div className="lg:col-span-3">
           {summonerStats.data.map((stat: any) => (
             <div key={stat.matchId} className="mt-8">
               {stat.Participant.map((p: Participant) =>
@@ -315,7 +315,7 @@ const SummonerPage: React.FC<InferGetServerSidePropsType<
             </div>
           ))}
         </div>
-        <div className="col-start-5 col-span-6">
+        <div className="lg:col-start-5 lg:col-span-6 lg:block flex items-center justify-center gap-2">
           {leagues.data?.map((league: League) => (
             <div
               key={league.queueType}
@@ -353,7 +353,7 @@ const SummonerPage: React.FC<InferGetServerSidePropsType<
                     </div>
                   </div>
                 </div>
-                <div className="w-[150px] h-[150px] mt-16">
+                <div className="w-[100px] h-[100px] mt-16">
                   <Doughnut
                     data={{
                       labels: ['Win', 'Losses'],

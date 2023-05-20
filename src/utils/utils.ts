@@ -16,7 +16,7 @@ export function formatTimeDifference(date: Date): string {
     const months = difference.getUTCMonth();
     const days = difference.getUTCDate() - 1;
   
-    let result = "Il y a ";
+    let result = "";
     if (years > 0) {
       result += years + (years === 1 ? " an " : " ans ");
     }

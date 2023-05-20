@@ -1,15 +1,14 @@
 import { FC } from 'react'
 import Button from './ui/Button'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
+import Link from 'next/link'
 
-interface NavbarProviderProps {}
+interface NavbarProviderProps {
+  session: Session
+}
 
-const Navbar: FC<NavbarProviderProps> = ({}) => {
-
-
-  const { data: session } = useSession()
-
-
+const Navbar: FC<NavbarProviderProps> = ({session}) => {
   return (
     <header
       aria-label="Site Header"
@@ -36,7 +35,7 @@ const Navbar: FC<NavbarProviderProps> = ({}) => {
 
           <div className="hidden md:block">
             <nav aria-label="Site Nav">
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-6 text-sm font-medium">
                 <li>
                   <a
                     className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
@@ -77,21 +76,29 @@ const Navbar: FC<NavbarProviderProps> = ({}) => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <Button>Login</Button>
               {session?.user ? (
-                <button onClick={signOut}>Sing out</button>
-              ) : (
-                <button onClick={signIn}>Sing in</button>
-              )}
-
-              <div className="hidden sm:flex">
-                <a
-                  className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                  href="/"
+                <Button
+                  className="bg-teal-700 hover:bg-teal-500"
+                  onClick={signOut}
                 >
-                  Register
-                </a>
-              </div>
+                  Deconnexion
+                </Button>
+              ) : (
+                <div className="hidden sm:flex gap-1">
+                  <Link
+                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                    href="/register"
+                  >
+                    Crée un compte
+                  </Link>
+                  <Link
+                    className="bg-teal-700 hover:bg-teal-500 rounded-md px-5 py-2.5 text-sm font-medium dark:text-white dark:hover:text-white/75"
+                    href="/login"
+                  >
+                    Se conecter
+                  </Link>
+                </div>
+              )}
             </div>
 
             <div className="block md:hidden">
