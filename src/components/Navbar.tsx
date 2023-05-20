@@ -1,9 +1,15 @@
 import { FC } from 'react'
 import Button from './ui/Button'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 interface NavbarProviderProps {}
 
 const Navbar: FC<NavbarProviderProps> = ({}) => {
+
+
+  const { data: session } = useSession()
+
+
   return (
     <header
       aria-label="Site Header"
@@ -72,6 +78,11 @@ const Navbar: FC<NavbarProviderProps> = ({}) => {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               <Button>Login</Button>
+              {session?.user ? (
+                <button onClick={signOut}>Sing out</button>
+              ) : (
+                <button onClick={signIn}>Sing in</button>
+              )}
 
               <div className="hidden sm:flex">
                 <a

@@ -1,17 +1,20 @@
-import { type AppType } from "next/app";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SessionProvider } from "next-auth/react"
+import type { AppProps, AppType } from 'next/app'
 
 import { api } from "@/utils/api";
 
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = ({ Component, pageProps: {...pageProps} }: AppProps) => {
   return (
     <>
+     <SessionProvider>
       {/* <Navbar /> */}
       <Component {...pageProps} />
       <ReactQueryDevtools />
+      </SessionProvider>
     </>
   );
 };
