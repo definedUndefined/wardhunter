@@ -41,5 +41,12 @@ export function formatTimeDifference(date: Date): string {
   export const registerUserSchema = z.object({
     email: z.string().email(),
     password: z.string().min(6, 'Password should be minimum 6 characters'),
+    username: z.string().min(3, 'Name should be at least 3 characters')
   })
+
+  export const userSchemaLogin = z.object({
+    email: z.string().email(),
+    password: z.string().min(6, 'Password should be minimum 6 characters'),
+  })
+  
   

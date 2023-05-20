@@ -2,21 +2,11 @@ import { signIn, signOut } from 'next-auth/react';
 import { ChangeEvent, useState } from 'react';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  function handleEmailChange(event: ChangeEvent<HTMLInputElement>): void {
-    setEmail(event.target.value);
-  }
-
-  function handlePasswordChange(event: ChangeEvent<HTMLInputElement>): void {
-    setPassword(event.target.value);
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
+    const form = new FormData(e.target as HTMLFormElement);
 
     try {
       const response = await fetch('/api/register', {
@@ -25,35 +15,41 @@ export default function LoginPage() {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({ email, password, username: 'aymane' }),
+        body: JSON.stringify({ email: form.get('email'), password: form.get('password'), username: form.get('username') }),
       });
 
       console.log(await response.json())
 
       if (!response.ok) {
         const data = await response.json();
+        console.log(data)
         setError(data.error);
       }
-      signIn('credentials', {email: email , password: password, callbackUrl: '/'})
+      signIn('credentials', {email: form.get('email'), password: form.get('password'), username: form.get('username'), callbackUrl: '/'})
     } catch (error) {
       // Gérer les erreurs de connexion ou autres erreurs
       setError("Une erreur s'est produite lors de la communication avec le serveur.");
     }
 
-    setEmail('');
-    setPassword('');
   };
 
   return (
     <section>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <input type="email" value={email} onChange={handleEmailChange} />
+        <input 
+        type="email" 
+        name="email"
+         />
+        <label htmlFor="username">Username</label>
+        <input 
+        type="username" 
+        name="username"
+         />
         <label htmlFor="password">Password</label>
         <input
           type="password"
-          value={password}
-          onChange={handlePasswordChange}
+         name="password"
         />
         {error && <p>{error}</p>}
         <button type="submit">Inscription</button>

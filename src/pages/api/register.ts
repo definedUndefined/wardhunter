@@ -8,7 +8,7 @@ export default async function registerUser(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { email, password } = registerUserSchema.parse(req.body)
+  const { email, password, username } = registerUserSchema.parse(req.body)
   const user = await prisma.user.findUnique({
     where: { email: email },
   })
@@ -23,6 +23,7 @@ export default async function registerUser(
     data: {
       email,
       password: hashedPassword,
+      name: username,
     },
   })
 

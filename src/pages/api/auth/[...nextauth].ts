@@ -5,7 +5,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
-import { registerUserSchema } from '@/utils/utils'
+import { userSchemaLogin } from '@/utils/utils'
 
 const loginUserSchema = z.object({
   username: z.string().regex(/^[a-z0-9_-]{3,15}$/g, 'Invalid username'),
@@ -22,7 +22,7 @@ const authOptions: AuthOptions = {
         password: { type: 'password', placeholder: 'Pa$$w0rd' },
       },
       async authorize(credentials) {
-        const { email, password } = registerUserSchema.parse(credentials)
+        const { email, password } = userSchemaLogin.parse(credentials)
         
         console.log('Email pwd ' + email, password)
         
@@ -46,7 +46,7 @@ const authOptions: AuthOptions = {
   ],
   callbacks: {
     session({ session, token }) {
-      console.log('session ' + session, 'token ' + token)
+      console.log(JSON.stringify(token, null, 8))
       session.user.id = token.id
       session.user.name = token.name
       return session
