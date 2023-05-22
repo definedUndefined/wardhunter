@@ -1,16 +1,18 @@
-import { type NextPage } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 
 import { api } from "@/utils/api";
 import SearchSummoner from "@/components/SummonerSearchbar";
 import Navbar from "@/components/Navbar";
 
-const Home: NextPage = () => {
+const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({session}) => {
+
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { data, status } = useSession();
-  console.log(data, status);
+  // const { data, status } = useSession();
+  console.log(session);
+
   return (
     <>
       <Head>
@@ -19,6 +21,7 @@ const Home: NextPage = () => {
         <meta name="description" content="WardHunter" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar session={session} />
       <div>
       <section className="relative bg-cover bg-center bg-no-repeat" style={{backgroundImage: `url(/homepage_bg.jpg)`}}>
         <div className="absolute inset-0 bg-black/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-black/95 sm:to-gray-600/25"></div>
@@ -46,3 +49,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  return {
+    props: { session },
+  }
+}
