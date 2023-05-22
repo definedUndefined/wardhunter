@@ -13,6 +13,7 @@ const MyApp: AppType = ({ Component, pageProps: {...pageProps} }: AppProps) => {
   return (
     <>
      <SessionProvider>
+     <Navbar session={pageProps.session} />
       <Component {...pageProps} />
       <ReactQueryDevtools />
       </SessionProvider>

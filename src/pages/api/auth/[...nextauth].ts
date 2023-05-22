@@ -39,6 +39,7 @@ const authOptions = {
         
         if (!isPasswordValid) return null;
         console.log('passed after mdp check');
+        console.log(user)
         return user;
       },
     }),
@@ -48,6 +49,7 @@ const authOptions = {
       console.log(JSON.stringify(token, null, 8))
       session.user.id = token.id
       session.user.name = token.name
+      session.user.role = token.role
       return session
     },
     jwt({ token, account, user }: any) {
@@ -55,6 +57,7 @@ const authOptions = {
         token.accessToken = account.access_token
         token.id = user.id
         token.username = (user as User).name
+        token.role = user.role
         console.log({ user })
       }
       return token
