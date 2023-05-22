@@ -12,7 +12,6 @@ const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   // const { data, status } = useSession();
   console.log(session);
-
   return (
     <>
       <Head>
@@ -21,7 +20,6 @@ const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (
         <meta name="description" content="WardHunter" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar session={session} />
       <div>
       <section className="relative bg-cover bg-center bg-no-repeat" style={{backgroundImage: `url(/homepage_bg.jpg)`}}>
         <div className="absolute inset-0 bg-black/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-black/95 sm:to-gray-600/25"></div>
